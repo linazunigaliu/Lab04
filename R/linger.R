@@ -1,6 +1,7 @@
-#' Linear Regression Function - linreg
+#' Linear Regression Reference Class - linreg
 #'
-#' This function uses a class to get a multiple linear regression model.
+#' This function defines a reference class for fitting a multiple linear regression model
+#' using QR decomposition. The generator function `linreg()` creates objects of class "linreg".
 #'
 #' @section Fields:
 #' \describe{
@@ -8,32 +9,39 @@
 #'   \item{data}{A data frame containing the variables used in the model.}
 #'   \item{data_name}{Character string with the name of the data frame.}
 #'   \item{coefficients}{Estimated regression coefficients.}
-#'   \item{fitted_val}{Fitted values from the model.}
+#'   \item{fitted}{Fitted values from the model.}
 #'   \item{residuals}{Residuals from the model.}
-#'   \item{df}{Degrees of freedom (n - p).}
-#'   \item{residual_var}{Residual variance.}
-#'   \item{var_beta}{Variance-covariance matrix of the coefficients.}
+#'   \item{df}{Residual degrees of freedom (n - p).}
+#'   \item{rss}{Residual sum of squares.}
+#'   \item{sigma2}{Residual variance.}
+#'   \item{vcov}{Variance-covariance matrix of the coefficients.}
+#'   \item{se}{Standard errors of coefficients.}
 #'   \item{t_values}{t-statistics for the coefficients.}
 #'   \item{p_values}{p-values for the coefficients.}
 #' }
 #'
 #' @section Methods:
 #' \describe{
-#'   \item{initialize(formula, data)}{Create a new `linreg` object. Computes coefficients, fitted values, residuals, and p-values.}
+#'   \item{initialize(formula, data)}{Create a new `linreg` object.}
 #'   \item{print()}{Print a short summary of the regression formula and coefficients.}
-#'   \item{plot()}{Display diagnostic plots: Residuals vs Fitted and Scale–Location plots.}
+#'   \item{plot()}{Display diagnostic plots.}
 #'   \item{resid()}{Return residuals of the model.}
 #'   \item{pred()}{Return fitted values of the model.}
 #'   \item{coef()}{Return estimated coefficients of the model.}
-#'   \item{summary()}{Print a detailed summary of the regression model, including coefficient table with standard errors, t-values, p-values, and significance stars.}
+#'   \item{summary()}{Print a detailed summary of the regression model.}
 #' }
 #'
-#' @param formula A formula , e.g., y ~ x1 + x2.
+#' @param formula A formula, e.g., y ~ x1 + x2.
+#' @param data A data frame containing the variables in the formula.
 #'
-#' @param data A data frame representing the variables included in the formula
+#' @examples
+#' data(iris)
+#' fit <- linreg(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+#' fit
+#' fit$summary()
 #'
-#'
-#' @export
+#' @export linreg
+#' @exportClass linreg
 linreg <- setRefClass(
   "linreg",
   fields = list(

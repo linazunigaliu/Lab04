@@ -1,0 +1,102 @@
+---
+title: "Introduction to linreg"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to linreg}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Lab04)
+```
+
+## Introduction
+
+The function linreg() implements linear regression using QR decomposition.
+It returns an object of class "linreg" that contains regression results and provides methods for:
+
+printing the model,
+
+extracting coefficients, residuals, and fitted values,
+
+summarizing results (with SE, t-values, and p-values),
+
+plotting diagnostic graphs.
+
+In this vignette we demonstrate how to use linreg with the iris and faithful datasets.
+
+---
+
+## Example 1: Iris dataset
+
+We model **Sepal.Length** as a function of **Sepal.Width** and **Petal.Length**.
+
+```{r}
+data(iris)
+
+# Fit the model
+fit <- linreg(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+```
+
+Printing the model
+```{r}
+fit$print()
+```
+
+Plot residuals
+```{r}
+fit$plot()
+```
+
+Get the vector of residuals
+```{r}
+head(fit$resid(), 10)   # first 10 residuals
+```
+
+Get the vector of predicted values
+```{r}
+head(fit$pred(), 10)    # first 10 predicted values
+```
+
+Get the coefficients as a vector
+```{r}
+fit$coef()
+```
+
+Get the summary of the model
+```{r}
+fit$summary()
+```
+
+
+## Example 2: Faithful dataset
+
+We now model eruption duration (**eruptions**) as a function of waiting time (**waiting**).
+```{r}
+data(faithful)
+
+fit2 <- linreg(eruptions ~ waiting, data = faithful)
+fit2
+```
+
+Summary and plots
+```{r}
+fit2$summary()
+fit2$plot()
+```
+
+
+
+## Conclusion
+
+The linreg function provides a simple implementation of linear regression with
+methods for inspecting coefficients, fitted values, residuals, statistical inference,
+and diagnostic plots, similar to the built–in lm() function in R.
