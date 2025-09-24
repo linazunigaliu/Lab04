@@ -1,0 +1,14 @@
+Package: Lab04
+Type: Package
+Title: Lab04
+Version: 1.0.0
+Author: Lina Zuniga
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: Advanced R Programming, Computer lab 4.
+    A linear regression package in R.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
+Imports:
+    methods
